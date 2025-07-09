@@ -1,0 +1,7 @@
+# Fichiers corrompus / temporaires
+_*
+*.swp
+*.tmp
+.DS_Store
+.idea/
+.vscode/
