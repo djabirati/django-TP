@@ -19,6 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('job.urls')),
-    path('api/', include('feedback.urls')),
+    path('', include('job.urls')),        # contient job HTML + job API
+    path('', include('feedback.urls')),   # contient feedback HTML + feedback API
 ]
