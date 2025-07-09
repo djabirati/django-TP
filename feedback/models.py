@@ -5,13 +5,14 @@ from django.db import models
 from django.db import models
 from job.models import JobRecord, Candidate
 
+
 class Feedback(models.Model):
     job = models.ForeignKey(
         JobRecord,
         on_delete=models.CASCADE,
         related_name='feedbacks'
     )
-    author_name = models.ForeignKey(
+    candidate = models.ForeignKey(
         Candidate,
         on_delete=models.SET_NULL,
         null=True,
