@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Feedback App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+    <div class="max-w-4xl mx-auto">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
