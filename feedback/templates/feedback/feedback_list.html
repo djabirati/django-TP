@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedbacks pour le job</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 p-6">
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-semibold mb-6">Feedbacks pour ce job</h1>
+
+        {% if average_rating %}
+            <div class="mb-6 bg-white border p-4 rounded-xl shadow-sm">
+                <p class="text-lg text-gray-700">
+                    Note moyenne :
+                    <span class="font-bold text-2xl">{{ average_rating|floatformat:1 }}</span>
+                    <span class="text-yellow-400">★</span>
+                </p>
+            </div>
+        {% endif %}
+
+        <form method="get" class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Note minimum</label>
+            <input type="number" name="min_rating" min="1" max="5" step="1"
+                   class="border border-gray-300 rounded-lg px-4 py-2 w-32 shadow-sm"
+                   placeholder="ex: 3">
+            <button type="submit" class="ml-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                Filtrer
+            </button>
+        </form>
+
+        {% if feedbacks %}
+            <div class="space-y-4">
+                {% for feedback in feedbacks %}
+                    <div class="bg-white p-4 rounded-xl shadow-sm border">
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-semibold">
+                                {{ feedback.author_name.name|default:"Anonyme" }}
+                            </p>
+                            <span class="text-sm bg-gray-200 px-3 py-1 rounded-full">
+                                {{ feedback.rating }} ⭐
+                            </span>
+                        </div>
+                        <p class="mt-2 text-gray-700">{{ feedback.comment }}</p>
+                        <p class="mt-1 text-sm text-gray-500">Posté le {{ feedback.created_at|date:"d/m/Y" }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Aucun feedback trouvé.</p>
+        {% endif %}
+        <div class="mt-10 text-right">
+            <a href="{% url 'add_feedback' %}"
+               class="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
+                Ajouter un feedback
+            </a>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+</html>
