@@ -22,8 +22,19 @@ def stats_view(request):
     return render(request, 'job/stats.html', context)
 
 def job_list(request):
-    jobs = JobRecord.objects.all()
-    return render(request, 'job/job_list.html', {'jobs': jobs})
+    selected_title = request.GET.get('job_title')
+    if selected_title:
+        jobs = JobRecord.objects.filter(job_title=selected_title)
+    else:
+        jobs = []  # Vide si rien sélectionné
+
+    all_titles = JobRecord.objects.values_list('job_title', flat=True).distinct()
+
+    return render(request, 'job/job_list.html', {
+        'jobs': jobs,
+        'all_titles': all_titles,
+        'selected_title': selected_title
+    })
 
 def job_detail(request, job_id):
     job = get_object_or_404(JobRecord, id=job_id)

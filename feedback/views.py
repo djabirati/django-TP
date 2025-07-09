@@ -27,14 +27,14 @@ def feedback_list(request, job_id):
 def add_feedback(request):
     if request.method == 'POST':
         job_id = request.POST.get('job')
-        author_id = request.POST.get('author_name')
+        candidate_id = request.POST.get('candidate')
         comment = request.POST.get('comment')
         rating = int(request.POST.get('rating', 0))
 
         if 1 <= rating <= 5:
             Feedback.objects.create(
                 job_id=job_id,
-                author_name_id=author_id,
+                candidate_id=candidate_id if candidate_id else None,
                 comment=comment,
                 rating=rating
             )
