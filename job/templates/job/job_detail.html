@@ -1,0 +1,21 @@
+{% extends "feedback/base.html" %}
+
+{% block title %}Détail de l'offre{% endblock %}
+
+{% block content %}
+    <div class="bg-white border rounded-xl shadow-sm p-6">
+        <h1 class="text-3xl font-semibold mb-4">{{ job.job_title }}</h1>
+
+        <div class="text-gray-700 space-y-2">
+            <p><span class="font-medium">Salaire :</span> {{ job.salary_in_usd }} USD</p>
+            <p><span class="font-medium">Entreprise située à :</span> {{ job.company_location }}</p>
+        </div>
+
+        <div class="mt-6 text-right">
+            <a href="{% url 'feedback_list' job.id %}"
+               class="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
+                Voir les feedbacks
+            </a>
+        </div>
+    </div>
+{% endblock %}

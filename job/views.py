@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.shortcuts import render
 from django.db.models import Avg, Count
+from rest_framework import viewsets
+
+from .Serializer import JobRecordSerializer
 from .models import JobRecord
 
 def stats_view(request):
@@ -17,3 +20,15 @@ def stats_view(request):
     }
 
     return render(request, 'job/stats.html', context)
+
+def job_list(request):
+    jobs = JobRecord.objects.all()
+    return render(request, 'job/job_list.html', {'jobs': jobs})
+
+def job_detail(request, job_id):
+    job = get_object_or_404(JobRecord, id=job_id)
+    return render(request, 'job/job_detail.html', {'job': job})
+
+class JobRecordViewSet(viewsets.ModelViewSet):
+    queryset = JobRecord.objects.all()
+    serializer_class = JobRecordSerializer

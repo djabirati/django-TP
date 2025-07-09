@@ -1,20 +1,25 @@
 from django.db.models import Avg
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from rest_framework import viewsets
 
+from feedback.Serializer import FeedbackSerializer
 from feedback.models import Feedback
+from job.models import JobRecord
 
 
 # Create your views here.
 
 def feedback_list(request, job_id):
+    job = get_object_or_404(JobRecord, id=job_id)
+    feedbacks = Feedback.objects.filter(job=job)
     min_rating = request.GET.get('min_rating')
-    feedbacks = Feedback.objects.filter(job_id=job_id)
     if min_rating:
         feedbacks = feedbacks.filter(rating__gte=min_rating)
     average = feedbacks.aggregate(Avg('rating'))['rating__avg']
     return render(request, 'feedback/feedback_list.html', {
         'feedbacks': feedbacks,
-        'average_rating': average
+        'average_rating': average,
+        'job': job
     })
 
 
@@ -36,3 +41,6 @@ def add_feedback(request):
 
     return render(request, 'feedback/add_feedback.html')
 
+class FeedbackViewSet(viewsets.ModelViewSet):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer

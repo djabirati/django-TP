@@ -1,0 +1,24 @@
+{% extends "feedback/base.html" %}
+
+{% block title %}Liste des offres d’emploi{% endblock %}
+
+{% block content %}
+    <h1 class="text-3xl font-semibold mb-6">Offres d’emploi</h1>
+
+    {% if jobs %}
+        <ul class="space-y-4">
+            {% for job in jobs %}
+                <li class="bg-white border rounded-xl p-6 shadow-sm">
+                    <p class="text-lg font-semibold">{{ job.job_title }}</p>
+                    <p class="text-gray-700">Salaire : {{ job.salary_in_usd }} USD</p>
+                    <a href="{% url 'job_detail' job.id %}"
+                       class="inline-block mt-2 text-sm text-blue-600 underline hover:text-blue-800">
+                        Voir les détails
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune offre disponible.</p>
+    {% endif %}
+{% endblock %}
