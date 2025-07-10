@@ -1,6 +1,7 @@
 from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from feedback.Serializer import FeedbackSerializer
 from feedback.models import Feedback
@@ -44,3 +45,5 @@ def add_feedback(request):
 class FeedbackViewSet(viewsets.ModelViewSet):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+

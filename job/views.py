@@ -1,9 +1,11 @@
+from django.contrib.auth.models import Permission
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.shortcuts import render
 from django.db.models import Avg, Count
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .Serializer import JobRecordSerializer
 from .models import JobRecord
@@ -43,3 +45,7 @@ def job_detail(request, job_id):
 class JobRecordViewSet(viewsets.ModelViewSet):
     queryset = JobRecord.objects.all()
     serializer_class = JobRecordSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['job_title', 'employee_residence']
+    ordering_fields = ['salary_in_usd']
