@@ -1,5 +1,3 @@
-console.log("Script feedback.js chargé");
-
 document.addEventListener("DOMContentLoaded", function () {
     const jobId = window.jobId;
     if (!jobId) {
@@ -72,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     fetch(`/api/feedback/?job=${jobId}`)
                         .then(res => res.json())
                         .then(data => {
+                        console.log(data);
                             const list = document.getElementById("feedback-list");
                             list.innerHTML = "";
 

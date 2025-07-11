@@ -1,11 +1,13 @@
 from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets
+
+from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from feedback.Serializer import FeedbackSerializer
 from feedback.models import Feedback
 from job.models import JobRecord
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Create your views here.
@@ -46,4 +48,9 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['job']
+    search_fields = ['comment']
+    ordering_fields = ['rating', 'created_at']
 

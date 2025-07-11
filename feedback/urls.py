@@ -13,8 +13,3 @@ urlpatterns = [
     path('feedback/<int:job_id>/', feedback_list, name='feedback_list'),
     path('feedback/add/', add_feedback, name='add_feedback'),
 ]
-
-"""
-Ne pas afficher tout les jobs record, 
-Il faut un menu deroulant avec les job record title et la on affiche tout les feedbacks 
-"""
