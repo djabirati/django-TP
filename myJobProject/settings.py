@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,14 +26,23 @@ SECRET_KEY = 'django-insecure-(ak(f^8lltthl0#1$8wuwct=p7shk6evakjxn9-+e^ah+&3+43
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+"""
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+"""
 
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'feedback/static'),
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +50,7 @@ INSTALLED_APPS = [
     'job',
     'feedback',
     'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

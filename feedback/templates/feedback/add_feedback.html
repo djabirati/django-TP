@@ -5,7 +5,8 @@
 {% block content %}
     <h1 class="text-3xl font-semibold mb-6">Ajouter un Feedback</h1>
 
-    <form method="post" class="bg-white p-6 rounded-xl shadow-sm border space-y-4">
+    <form id="feedback-form" class="bg-white p-6 rounded-xl shadow-sm border space-y-4">
+        <p id="form-message" class="text-sm text-green-600 hidden">Feedback envoyé !</p>
         {% csrf_token %}
 
         <div>
